@@ -15,7 +15,7 @@ import { DoctorEntity } from './doctor/Entitys/doctorEntity/doctorentity.entity'
 import { BlogEntity } from './doctor/Entitys/blogEntity/blogentity.entity';
 import { CampaignModule } from './doctor/Modules/campaignModule/campaignmodule.module';
 
-
+//Railway app Configurations added here
 @Module({
   imports: [CitizenModule,AdminModule,AllUsersSignUpForm,EmployeeModule2,EmployeeModule,BlogModule,CampaignModule,DoctorModule,
           TypeOrmModule.forRoot({type: 'postgres',
