@@ -8,6 +8,8 @@ import { BlogService } from "src//doctor/Services/blogService/blogservice.servic
 import { BlogEntity } from "src/doctor/Entitys/blogEntity/blogentity.entity";
 import { CampaignService } from "src/doctor/Services/campaignService/campaignservice.service";
 import { CampaignEntity } from "src/doctor/Entitys/campaignEntity/campaignentity.entity";
+import { DoctorAppoinmentEntity } from "src/doctor/Entitys/appointmentEntity/appointmentEntity.entity";
+import { AppointmentService } from "src/doctor/Services/appointmentService/appointmentService.service";
 
 
 @Module({
@@ -22,9 +24,9 @@ imports: [MailerModule.forRoot({
                    pass: 'ztvjgchxvfcodewk'
                },
               }
-  }), TypeOrmModule.forFeature([DoctorEntity,BlogEntity,CampaignEntity])],
+  }), TypeOrmModule.forFeature([DoctorEntity,BlogEntity,CampaignEntity,DoctorAppoinmentEntity])],
 controllers: [doctorController],
-providers: [DoctorService,BlogService,CampaignService]
+providers: [DoctorService,BlogService,CampaignService,AppointmentService]
 
 })
 

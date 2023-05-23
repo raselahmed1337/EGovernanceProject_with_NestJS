@@ -1,6 +1,7 @@
 import { BlogEntity } from 'src/doctor/Entitys/blogEntity/blogentity.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { CampaignEntity } from '../campaignEntity/campaignentity.entity';
+import { DoctorAppoinmentEntity } from '../appointmentEntity/appointmentEntity.entity';
 
 @Entity("doctors")
 export class DoctorEntity{
@@ -36,4 +37,7 @@ export class DoctorEntity{
 
   @OneToMany(() => CampaignEntity, campaign => campaign.doctor)
   campaigns: CampaignEntity[];
+
+  @OneToMany(() => DoctorAppoinmentEntity, doctorAppointment => doctorAppointment.doctor)
+  doctorAppointments: DoctorAppoinmentEntity[];
 }

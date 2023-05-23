@@ -9,14 +9,17 @@ import { SessionGuard } from '../../Guards/session.guard';
 import { BlogEntity } from 'src/doctor/Entitys/blogEntity/blogentity.entity';
 import { CampaignService } from 'src/doctor/Services/campaignService/campaignservice.service';
 import { CampaignForm } from 'src/doctor/DTOs/campaignDto/campaigndto.dto';
-
+import { AppointmentForm } from 'src/doctor/DTOs/appointmentDto/appointmentDto.dto';
+import { AppointmentService } from 'src/doctor/Services/appointmentService/appointmentService.service';
+import { BadRequestException } from '@nestjs/common';
 
 @Controller('doctor')
 export class doctorController {
   constructor(
     private doctorService: DoctorService,
     private blogService: BlogService,
-    private campaignService : CampaignService
+    private campaignService : CampaignService,
+    private appointmentService : AppointmentService,
   ) {}
 
   //1
@@ -336,5 +339,64 @@ getCampaignImages(@Param('name') name, @Res() res) {
 deleteCampaignByID(@Param('id', ParseIntPipe) id: number): any {
   return this.campaignService.deleteCampaignByID(id);
 }
+
+
+
+
+  //########################### Make Doctor Appoinment Part ###################################
+  @Post('makeAppointment')
+  @UseInterceptors(
+    FileInterceptor('myfile', {
+      storage: diskStorage({
+        destination: './uploadsMakeAppointment',
+        filename: function (req, file, cb) {
+          cb(null, Date.now() + file.originalname);
+        },
+      }),
+    }),
+  )
+  async makeAppointment(
+    @Body() mydto: AppointmentForm,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new MaxFileSizeValidator({ maxSize: 16000000 }),
+          new FileTypeValidator({ fileType: 'png|jpg|jpeg' }),
+        ],
+      }),
+    )
+    file: Express.Multer.File,
+  ) {
+    mydto.filename = file.filename;
+     // Check if the doctor's email exists in the doctor table
+  const doctorExists = await this.doctorService.checkDoctorByEmail(mydto.doctorEmail);
+  if (!doctorExists) {
+    throw new BadRequestException('Invalid doctor email');
+  }
+    console.log(mydto);
+    return this.appointmentService.makeAppointment(mydto);
+  }
+
+  @Get('/findAppointmentByID/:id')
+  getAppointmentByID(@Param('id', ParseIntPipe) id: number): any {
+    return this.appointmentService.getAppointmentID(id);
+  }
+
+
+@Get('allAppointments')
+getAllAppointments():any{
+  return this.appointmentService.getAllAppointments();
+}
+
+@Get('/getPatientsImage/:name')
+getPatientsImage(@Param('name') name, @Res() res) {
+  res.sendFile(name,{ root: './uploadsMakeAppointment' })
+}
+
+@Delete('/deleteAppointment/:id')
+deleteAppointmentByID(@Param('id', ParseIntPipe) id: number): any {
+  return this.appointmentService.deleteAppointmentByID(id);
+}
+
 
 }

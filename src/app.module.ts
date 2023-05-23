@@ -11,11 +11,28 @@ import { EmployeeModule2 } from './Modules/employee2module.module';
 import {EmployeeModule } from './Modules/employee.module';
 import { BlogModule } from './doctor/Modules/blogModule/blogmodule.module';
 import { DoctorModule } from './doctor/Modules/doctorModule/doctormodule.module';
-import { DoctorEntity } from './doctor/Entitys/doctorEntity/doctorentity.entity';
-import { BlogEntity } from './doctor/Entitys/blogEntity/blogentity.entity';
 import { CampaignModule } from './doctor/Modules/campaignModule/campaignmodule.module';
+import { DoctorAppoinmentModule } from './doctor/Modules/doctorAppointmentModule/doctorAppointmentModule.module';
 
-//Railway app Configurations added here
+// //Localhost Configurations added here
+// @Module({
+//   imports: [CitizenModule,AdminModule,AllUsersSignUpForm,EmployeeModule2,EmployeeModule,BlogModule,CampaignModule,DoctorModule,DoctorAppoinmentModule,
+//           TypeOrmModule.forRoot({type: 'postgres',
+//           host: 'localhost',
+//           port: 5432,
+//           username: 'postgres',
+//           password: 'root',
+//           database: 'E_Governance',
+//           autoLoadEntities: true,
+//           synchronize: true,})],
+//   controllers: [AppController],
+//   providers: [AppService],
+// })
+// export class AppModule {}
+
+
+
+// //Railway app Configurations added here
 @Module({
   imports: [CitizenModule,AdminModule,AllUsersSignUpForm,EmployeeModule2,EmployeeModule,BlogModule,CampaignModule,DoctorModule,
           TypeOrmModule.forRoot({type: 'postgres',

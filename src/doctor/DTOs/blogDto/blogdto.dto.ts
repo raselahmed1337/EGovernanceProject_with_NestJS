@@ -3,7 +3,7 @@ import { IsNotEmpty, IsString } from "class-validator";
 export class BlogForm {   
    @IsNotEmpty()
    @IsString()
-    blogtitle: string;
+   blogtitle: string;
 
     @IsNotEmpty()
     @IsString()

@@ -3,6 +3,7 @@ import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 
 @Entity("blog")
 export class BlogEntity{
+  
   @PrimaryGeneratedColumn()
   id: number;
 

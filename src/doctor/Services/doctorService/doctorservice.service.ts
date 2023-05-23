@@ -122,7 +122,10 @@ export class DoctorService {
       }
       return false;
     }
-    
+    async checkDoctorByEmail(email: string): Promise<boolean> {
+      const doctor = await this.doctorRepo.findOne({ where: {email} });
+      return !!doctor; // Returns true if a doctor with the given email exists, false otherwise
+    }
 
     async signin(mydto): Promise<any> {
     const doctor = await this.doctorRepo.findOne({ where: { email: mydto.email } });
